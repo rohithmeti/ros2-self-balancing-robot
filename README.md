@@ -40,8 +40,7 @@ Navigate to your workspace root directory and clone the repository:
 ```bash
 mkdir -p ~/ros2_twsbr2_ws/src
 cd ~/ros2_twsbr2_ws/src
-# Replace YOUR_USERNAME with your actual GitHub username
-git clone [https://github.com/YOUR_USERNAME/ros2-self-balancing-robot.git](https://github.com/YOUR_USERNAME/ros2-self-balancing-robot.git)
+git clone https://github.com/rohithmeti/ros2-self-balancing-robot.git
 ```
 
 **3. Run Rosdep (The Safety Net)**
