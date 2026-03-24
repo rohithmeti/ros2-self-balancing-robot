@@ -1,0 +1,56 @@
+<?xml version="1.0" ?>
+<robot name="self_balancing_bot_fusion" xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+<xacro:property name="body_color" value="Gazebo/Silver" />
+
+<gazebo>
+<plugin filename="libignition-gazebo-diff-drive-system.so" name="ignition::gazebo::systems::DiffDrive">
+    <left_joint>Revolute 2</left_joint>
+    <right_joint>Revolute 1</right_joint>
+    <wheel_separation>0.72</wheel_separation>
+    <wheel_radius>0.15</wheel_radius>
+    <odom_publish_frequency>20</odom_publish_frequency>
+    <topic>cmd_vel</topic>
+    
+    <odom_topic>odom</odom_topic>
+    <frame_id>odom</frame_id>
+    <child_frame_id>base_footprint</child_frame_id>
+  </plugin>
+  
+  <plugin filename="libignition-gazebo-imu-system.so" name="ignition::gazebo::systems::Imu">
+  </plugin>
+</gazebo>
+
+<gazebo reference="base_link">
+  <material>${body_color}</material>
+  <mu1>0.2</mu1>
+  <mu2>0.2</mu2>
+  <selfCollide>true</selfCollide>
+  <gravity>true</gravity>
+</gazebo>
+
+<gazebo reference="right_wheel_1">
+  <material>${body_color}</material>
+  <mu1>1.5</mu1>
+  <mu2>1.5</mu2>
+  <selfCollide>true</selfCollide>
+</gazebo>
+
+<gazebo reference="left_wheel_1">
+  <material>${body_color}</material>
+  <mu1>1.5</mu1>
+  <mu2>1.5</mu2>
+  <selfCollide>true</selfCollide>
+</gazebo>
+
+<gazebo reference="imu_link_1">
+  <sensor name="imu_sensor" type="imu">
+    <always_on>1</always_on>
+    <update_rate>100</update_rate>
+    <visualize>true</visualize>
+    <topic>imu</topic>
+    <ignition_frame_id>imu_link_1</ignition_frame_id>
+  </sensor>
+  <material>${body_color}</material>
+</gazebo>
+</robot>

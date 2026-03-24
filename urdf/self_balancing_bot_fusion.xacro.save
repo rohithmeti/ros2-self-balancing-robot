@@ -1,0 +1,113 @@
+<?xml version="1.0" ?>
+<robot name="self_balancing_bot_fusion" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="$(find ros2_twsbr2)/urdf/materials.xacro" />
+<xacro:include filename="$(find ros2_twsbr2)/urdf/self_balancing_bot_fusion.trans" />
+<xacro:include filename="$(find ros2_twsbr2)/urdf/self_balancing_bot_fusion.gazebo" />
+
+
+ <link name="base_link">
+  <inertial>
+    <origin xyz="2.08254851546395e-16 3.470914192439917e-17 0.08335932427700989" rpy="0 0 0"/>
+    <mass value="22.639667210540313"/>
+    <inertia ixx="0.903157" iyy="1.220897" izz="1.827865" ixy="0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ros2_twsbr2/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ros2_twsbr2/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link> 
+
+<link name="right_wheel_1">
+  <inertial>
+    <origin xyz="0.019999999999999962 -3.019806626980426e-16 -2.706168622523819e-16" rpy="0 0 0"/>
+    <mass value="3.392920065876976"/>
+    <inertia ixx="0.03817" iyy="0.019538" izz="0.019538" ixy="0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.36 -0.0 -0.05" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ros2_twsbr2/meshes/right_wheel_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.36 -0.0 -0.05" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ros2_twsbr2/meshes/right_wheel_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="left_wheel_1">
+  <inertial>
+    <origin xyz="-0.019999999999999962 2.573343600054235e-17 6.938893903907228e-18" rpy="0 0 0"/>
+    <mass value="3.392920065876976"/>
+    <inertia ixx="0.03817" iyy="0.019538" izz="0.019538" ixy="0.0" iyz="0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.36 -0.0 -0.05" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ros2_twsbr2/meshes/left_wheel_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.36 -0.0 -0.05" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ros2_twsbr2/meshes/left_wheel_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="imu_link_1">
+  <inertial>
+    <origin xyz="1.2320156670904636e-17 -1.3527036577340034e-32 0.004999999999999987" rpy="0 0 0"/>
+    <mass value="0.026322709845483096"/>
+    <inertia ixx="6e-06" iyy="6e-06" izz="1.1e-05" ixy="0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.0 -0.0 -0.01" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ros2_twsbr2/meshes/imu_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.0 -0.0 -0.01" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ros2_twsbr2/meshes/imu_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="Revolute 1" type="continuous">
+  <origin xyz="0.36 0.0 0.05" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="right_wheel_1"/>
+  <axis xyz="1.0 0.0 0.0"/>
+</joint>
+
+<joint name="Revolute 2" type="continuous">
+  <origin xyz="-0.36 0.0 0.05" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="left_wheel_1"/>
+  <axis xyz="-1.0 0.0 0.0"/>
+</joint>
+
+<joint name="Rigid 3" type="fixed">
+  <origin xyz="0.0 0.0 0.01" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="imu_link_1"/>
+</joint>
+
+</robot>
