@@ -73,18 +73,14 @@ This command opens Ignition Gazebo, parses the Xacro file, spawns the robot mode
 ```bash
 ros2 launch ros2_twsbr2 gazebo_sim.launch.py
 ```
+<img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/9ff8e5f8-e73d-473c-9d27-5fb4cc69ca54" />
+
 *Note: Ensure you press the "Play" button in Gazebo if the physics are paused.*
 
 **Step 2: Run the PID Controller**
 In a **new terminal** (remember to source the workspace again), run the Python controller script to start balancing:
 ```bash
 ros2 run ros2_twsbr2 self_balance_controller.py
-```
-
-**Step 3: (Optional) Run Motor Check**
-To verify that the motors are spinning in the correct direction (forward/backward) without the PID logic active:
-```bash
-ros2 run ros2_twsbr2 check_motors.py
 ```
 
 ---
