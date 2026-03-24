@@ -1,4 +1,10 @@
+Here is the completely updated and polished `README.md`. I have cleaned up the formatting, integrated the image you provided, and critically, **updated the Execution Instructions to include the correct script names (`only_self_balance_pid.py`, `self_balance_controller.py`, and `wasd_driver.py`)** that we finalized earlier.
 
+You can copy the entire block below and paste it directly into your GitHub repository.
+
+***
+
+```markdown
 # ROS 2 Two-Wheeled Self-Balancing Bot Simulation
 **Author:** Rohith Meti
 
@@ -11,7 +17,7 @@ A simulation package for a two-wheeled self-balancing robot utilizing ROS 2 Humb
 * **OS:** Ubuntu 22.04 LTS (or Pop!_OS 22.04)
 * **ROS Version:** ROS 2 Humble
 * **Simulator:** Ignition Gazebo Fortress (Ignition 6)
-* **MATLAB** recent one recomneded 
+* **MATLAB:** R2023b or newer recommended (Optional, for real-time data visualization and co-simulation)
 
 ---
 
@@ -20,7 +26,7 @@ To ensure a smooth setup without "Package Not Found" errors, follow these steps 
 
 **1. Install Core System Dependencies**
 Open your terminal and run the following to install the essential ROS-Ignition bridges, Xacro (for parsing the robot model), and state publishers:
-```
+```bash
 sudo apt update
 sudo apt install -y \
   ros-humble-ros-ign-gazebo \
@@ -35,16 +41,16 @@ sudo apt install -y \
 
 **2. Create the Workspace & Clone**
 Navigate to your workspace root directory and clone the repository:
-```
+```bash
 mkdir -p ~/ros2_twsbr2_ws/src
 cd ~/ros2_twsbr2_ws/src
-# Replace the URL below with your actual GitHub repository link
+# Replace YOUR_USERNAME with your actual GitHub username
 git clone [https://github.com/YOUR_USERNAME/ros2-self-balancing-robot.git](https://github.com/YOUR_USERNAME/ros2-self-balancing-robot.git)
 ```
 
 **3. Run Rosdep (The Safety Net)**
 `rosdep` will scan the `package.xml` file and automatically install any other underlying dependencies required by this specific package:
-```
+```bash
 cd ~/ros2_twsbr2_ws
 sudo rosdep init
 rosdep update
@@ -75,18 +81,36 @@ ros2 launch ros2_twsbr2 gazebo_sim.launch.py
 ```
 <img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/9ff8e5f8-e73d-473c-9d27-5fb4cc69ca54" />
 
-*Note: Ensure you press the "Play" button in Gazebo if the physics are paused.*
+*Note: Ensure you press the "Play" button in Gazebo if the physics are paused. The robot will fall over initially until a controller node is started.*
 
-**Step 2: Run the PID Controller**
-In a **new terminal** (remember to source the workspace again), run the Python controller script to start balancing:
+**Step 2: Run a Controller Node**
+You have two options depending on what you want to test. Open a **new terminal**, source your workspace (`source install/setup.bash`), and choose one:
+
+**Option A: Strict Balancing Only (No Movement)**
+Use this to simply verify the PID logic holding the robot at $0^\circ$ against gravity and disturbances.
+```bash
+ros2 run ros2_twsbr2 only_self_balance_pid.py
+```
+
+**Option B: Balancing + Teleoperation (Drive the Robot)**
+Use this to manually drive the robot. This requires running two separate nodes.
+In Terminal 1 (The Brain):
 ```bash
 ros2 run ros2_twsbr2 self_balance_controller.py
 ```
+In Terminal 2 (The Keyboard Driver):
+```bash
+ros2 run ros2_twsbr2 wasd_driver.py
+```
+* **W:** Lean Forward (Drive)
+* **S:** Lean Backward (Reverse)
+* **A:** Spin Left (Zero-radius turn)
+* **D:** Spin Right (Zero-radius turn)
+* **Spacebar:** Stop moving and hold balance
 
----
 
 ### MATLAB Integration
-* **Status:** Successfully connected MATLAB R2023b to the ROS 2 network.
+* **Status:** Successfully connected MATLAB to the ROS 2 network.
 * **Functionality:** A MATLAB node is configured to subscribe to the `/imu` topic via the bridge.
 * **Visualization:** Includes a script to convert Quaternion data to Euler angles (Pitch) and graph the robot's tilt in real-time to assist with PID tuning.
 
@@ -103,11 +127,4 @@ ros2 run ros2_twsbr2 self_balance_controller.py
 * **"Package 'ros2_twsbr2' not found" during launch:** Your terminal doesn't know where your workspace is. Source it, or manually export the path:
   ```bash
   export AMENT_PREFIX_PATH=$AMENT_PREFIX_PATH:~/ros2_twsbr2_ws/install/ros2_twsbr2
-  ```
-```
-
-***
-
-**A quick practical note:** For `rosdep` (Step 3) to work perfectly for anyone downloading your repo, make sure your `package.xml` file explicitly lists dependencies like `<depend>ros_ign_bridge</depend>` and `<depend>xacro</depend>`. 
-
-Would you like me to review the contents of your `package.xml` to ensure it is configured properly before you push it to GitHub?
+ 
