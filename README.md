@@ -1,12 +1,8 @@
-Here is the completely updated and polished `README.md`. I have cleaned up the formatting, integrated the image you provided, and critically, **updated the Execution Instructions to include the correct script names (`only_self_balance_pid.py`, `self_balance_controller.py`, and `wasd_driver.py`)** that we finalized earlier.
 
-You can copy the entire block below and paste it directly into your GitHub repository.
-
-***
 
 ```markdown
 # ROS 2 Two-Wheeled Self-Balancing Bot Simulation
-**Author:** Rohith Meti
+
 
 ### Project Description
 A simulation package for a two-wheeled self-balancing robot utilizing ROS 2 Humble and Ignition Gazebo Fortress. The project simulates physics, collision, and sensor data (IMU) to develop and test balancing algorithms. It features a custom URDF model, a bidirectional bridge between ROS 2 and Gazebo, and a Python-based PID controller for active balancing.
